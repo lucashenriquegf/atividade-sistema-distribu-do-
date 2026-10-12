@@ -1,0 +1,16 @@
+services:
+  servidor:
+    build: .
+    image: calculadora-java:local
+    ports:
+      - "127.0.0.1:5000:5000"
+
+  cliente:
+    image: calculadora-java:local
+    command: ["Cliente", "servidor"]
+    depends_on:
+      - servidor
+    stdin_open: true
+    tty: true
+    # O console é iniciado explicitamente com docker compose run.
+    profiles: ["console"]
